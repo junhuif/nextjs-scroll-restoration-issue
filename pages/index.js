@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Component } from "react";
 
 export default class extends Component {
@@ -6,6 +5,9 @@ export default class extends Component {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve({});
+        if (typeof window !== "undefined") {
+          window.alert("loaded");
+        }
       }, 2000);
     });
   }
@@ -14,9 +16,7 @@ export default class extends Component {
     for (let i = 0; i < 1000; i++) {
       links.push(
         <li key={i}>
-          <Link href="/next-page">
-            <a>{i}</a>
-          </Link>
+          <a href="/next-page">{i}</a>
         </li>
       );
     }
