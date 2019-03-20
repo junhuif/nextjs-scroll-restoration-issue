@@ -16,19 +16,6 @@ function identifyPopState(state) {
 window.addEventListener('unload', identifyPopState)
 `;
 
-const beforePopState = `
-window.addEventListener('load', function() {
-
-   window.next.router.beforePopState(state => {
-       console.log(":::::::::::::::::::; beforePopState: ", state);
-       if (state && state.options && state.options.fromExternal) {
-         return false;
-       }
-       return true;
-   });
-})
-`;
-
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
@@ -45,7 +32,6 @@ class MyDocument extends Document {
           <Main />
           <script dangerouslySetInnerHTML={{ __html }} />
           <NextScript />
-          <script dangerouslySetInnerHTML={{ __html: beforePopState }} />
         </body>
       </Html>
     );
