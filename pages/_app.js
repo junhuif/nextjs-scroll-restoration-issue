@@ -21,6 +21,19 @@ class MyApp extends App {
       }
       return true;
     });
+
+    if (/Safari/.test(navigator.userAgent)) {
+      console.log("Safari workaround");
+      window.addEventListener("unload", () => {
+        console.log("unloaded");
+        const { url, as, options } = history.state;
+        history.replaceState(
+          { url, as, options: { ...options, fromExternal: true } },
+          null,
+          as
+        );
+      });
+    }
   }
 
   render() {
