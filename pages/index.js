@@ -1,4 +1,5 @@
 import { Component } from "react";
+import Link from "next/link";
 
 export default class extends Component {
   static async getInitialProps() {
@@ -11,6 +12,7 @@ export default class extends Component {
       }, 2000);
     });
   }
+
   render() {
     const links = [];
     for (let i = 0; i < 1000; i++) {
@@ -21,6 +23,15 @@ export default class extends Component {
       );
     }
 
-    return <ul>{links}</ul>;
+    return (
+      <ul>
+        <li>
+          <Link passHref href="/next-page">
+            <a>Next Link</a>
+          </Link>
+        </li>
+        {links}
+      </ul>
+    );
   }
 }
