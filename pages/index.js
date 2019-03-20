@@ -1,26 +1,37 @@
-import Link from "next/link";
 import { Component } from "react";
+import Link from "next/link";
 
 export default class extends Component {
   static async getInitialProps() {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve({});
+        if (typeof window !== "undefined") {
+          window.alert("loaded");
+        }
       }, 2000);
     });
   }
+
   render() {
     const links = [];
     for (let i = 0; i < 1000; i++) {
       links.push(
         <li key={i}>
-          <Link href="/next-page">
-            <a>{i}</a>
-          </Link>
+          <a href="/next-page">{i}</a>
         </li>
       );
     }
 
-    return <ul>{links}</ul>;
+    return (
+      <ul>
+        <li>
+          <Link passHref href="/next-page">
+            <a>Next Link</a>
+          </Link>
+        </li>
+        {links}
+      </ul>
+    );
   }
 }
