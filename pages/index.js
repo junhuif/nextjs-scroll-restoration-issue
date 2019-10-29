@@ -3,10 +3,14 @@ import { Component } from "react";
 
 export default class extends Component {
   static async getInitialProps() {
+    if (typeof window !== "undefined") {
+      alert("called getInitialProps in browser!");
+    }
+
     return new Promise(resolve => {
       setTimeout(() => {
-        resolve({});
-      }, 2000);
+        resolve({ ts: Date() });
+      }, 300);
     });
   }
   render() {
@@ -14,13 +18,16 @@ export default class extends Component {
     for (let i = 0; i < 1000; i++) {
       links.push(
         <li key={i}>
-          <Link href="/next-page">
-            <a>{i}</a>
-          </Link>
+          <a href="/next-page">{i}</a>
         </li>
       );
     }
 
-    return <ul>{links}</ul>;
+    return (
+      <ul>
+        <li>ts:{this.props.ts}</li>
+        {links}
+      </ul>
+    );
   }
 }
